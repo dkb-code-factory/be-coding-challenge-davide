@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0003-create-notification-types-table
+      author: "davide_piarulli"
+      changes:
+
+        # CREATE notification_types TABLE
+        - createTable:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(50)
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: "pk_notification_types_id"
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+      rollback:
+        - delete:
+            tableName: "notification_types"

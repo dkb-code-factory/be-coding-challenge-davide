@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0005-load-notification-types
+      author: "davide_piarulli"
+      changes:
+        # SEED KNOWN NOTIFICATION TYPES (add more to the csv as needed)
+        - loadData:
+            tableName: notification_types
+            file: src/main/resources/csv_data/notification_types.csv
+            encoding: UTF-8
