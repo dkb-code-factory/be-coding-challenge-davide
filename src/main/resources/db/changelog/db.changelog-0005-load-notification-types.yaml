@@ -6,5 +6,12 @@ databaseChangeLog:
         # SEED KNOWN NOTIFICATION TYPES (add more to the csv as needed)
         - loadData:
             tableName: notification_types
-            file: src/main/resources/csv_data/notification_types.csv
+            file: db/changelog/csv_data/notification_types.csv
             encoding: UTF-8
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(50)
+              - column:
+                  name: category
+                  type: VARCHAR(50)

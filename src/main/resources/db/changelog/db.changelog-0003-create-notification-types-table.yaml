@@ -2,6 +2,7 @@ databaseChangeLog:
   - changeSet:
       id: 0003-create-notification-types-table
       author: "davide_piarulli"
+
       changes:
 
         # CREATE notification_types TABLE
@@ -15,15 +16,24 @@ databaseChangeLog:
                     primaryKey: true
                     primaryKeyName: "pk_notification_types_id"
                     nullable: false
+
               - column:
                   name: category
                   type: VARCHAR(50)
                   constraints:
                     nullable: false
+
               - column:
                   name: created_at
-                  type: TIMESTAMP
+                  type: TIMESTAMP WITH TIME ZONE
                   defaultValueComputed: CURRENT_TIMESTAMP
+
+        # UNIQUE: each notification type belongs to one category
+        - addUniqueConstraint:
+            tableName: notification_types
+            columnNames: id, category
+            constraintName: uq_notification_type_category
+
       rollback:
-        - delete:
-            tableName: "notification_types"
+        - dropTable:
+            tableName: notification_types
