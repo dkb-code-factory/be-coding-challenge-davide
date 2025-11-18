@@ -1,4 +1,4 @@
-package de.dkb.api.codeChallenge.notification.model
+package de.dkb.api.codeChallenge.notification.model.entity
 
 import jakarta.persistence.*
 import java.time.Instant
@@ -16,11 +16,15 @@ data class UserCategoryEntity(
     val id: Long? = null,
 
     @Column(name = "user_id", nullable = false, columnDefinition = "uuid")
-    val userId: UUID,
+    val userId: UUID = UUID.randomUUID(),
 
     @Column(name = "category", nullable = false, length = 50)
-    val category: String,
+    val category: String = "",
 
-    @Column(name = "subscribed_at", nullable = false)
+    @Column(name = "subscribed_at", nullable = false, insertable = false)
     val subscribedAt: Instant = Instant.now(),
-)
+
+    ) {
+    // Default constructor for JPA
+    constructor() : this(null, UUID.randomUUID(), "", Instant.now())
+}
