@@ -1,5 +1,6 @@
 package de.dkb.api.codeChallenge.notification.service
 
+import de.dkb.api.codeChallenge.notification.kafka.KafkaNotificationPublisher
 import de.dkb.api.codeChallenge.notification.model.entity.User
 import de.dkb.api.codeChallenge.notification.repository.UserRepository
 import de.dkb.api.codeChallenge.notification.model.dto.NotificationDto
@@ -13,7 +14,8 @@ import org.springframework.transaction.annotation.Transactional
 class NotificationService(
     private val userRepository: UserRepository,
     private val categoryService: CategoryService,
-    private val notificationTypeRepository: NotificationTypeRepository
+    private val notificationTypeRepository: NotificationTypeRepository,
+    private val kafkaPublisher: KafkaNotificationPublisher
 ) {
 
     private val logger = LoggerFactory.getLogger(NotificationService::class.java)
@@ -54,6 +56,7 @@ class NotificationService(
     fun sendNotification(notification: NotificationDto) {
         val userId = notification.userId
         val type = notification.notificationType.name
+        val message = notification.message
 
         if (!userRepository.existsById(userId)) {
             logger.warn("Cannot send notification to unknown userId={}", userId)
@@ -66,7 +69,8 @@ class NotificationService(
         }
 
         // Logic to send notification to user
-        logger.info("Sending notification type={} to userId={}: {}", type, userId, notification.message)
+        kafkaPublisher.publish(userId, type, message)
+        logger.info("Sending notification type={} to userId={}: {}", type, userId, message)
     }
 
 }

@@ -41,13 +41,13 @@ dependencies {
 	// Jakarta Persistence API
 	implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
 
-	// Testing dependencies
+// Testing dependencies
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.mockk:mockk:1.13.8")
 	testImplementation("org.testcontainers:junit-jupiter")
 	testImplementation("org.testcontainers:postgresql")
-	testRuntimeOnly("org.jetbrains.kotlin:kotlin-test-junit5")
-	testRuntimeOnly("org.springframework.kafka:spring-kafka-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
+	testImplementation(kotlin("test"))
 }
 
 kotlin {
@@ -58,4 +58,5 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+	systemProperty("spring.profiles.active", "test")
 }

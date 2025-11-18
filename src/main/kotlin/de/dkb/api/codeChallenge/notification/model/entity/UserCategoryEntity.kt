@@ -21,7 +21,7 @@ data class UserCategoryEntity(
     @Column(name = "category", nullable = false, length = 50)
     val category: String = "",
 
-    @Column(name = "subscribed_at", nullable = false, insertable = false)
+    @Column(name = "subscribed_at", nullable = false)
     val subscribedAt: Instant = Instant.now(),
 
     ) {
