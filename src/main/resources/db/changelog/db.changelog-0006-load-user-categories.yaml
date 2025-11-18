@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0006-load-user-categories
+      author: "davide_piarulli"
+      changes:
+        - loadData:
+            tableName: user_categories
+            file: "db/changelog/csv_data/user_categories.csv"
+            encoding: UTF-8
+            columns:
+              - column:
+                  name: user_id
+                  type: UUID
+              - column:
+                  name: category
+                  type: VARCHAR(50)

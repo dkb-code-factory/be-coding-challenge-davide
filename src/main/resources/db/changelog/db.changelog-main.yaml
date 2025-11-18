@@ -3,9 +3,25 @@ databaseChangeLog:
       name: "uuidType"
       value: "uuid"
       dbms: "postgresql"
+
+    # CREATE TABLE
   - include:
       file: "db.changelog-0001-create-users-table.yaml"
       relativeToChangelogFile: true
   - include:
+      file: "db.changelog-0003-create-notification-types-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "db.changelog-0004-create-user-categories-table.yaml"
+      relativeToChangelogFile: true
+
+    # LOAD DATA
+  - include:
       file: "db.changelog-0002-insert-users-table.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "db.changelog-0005-load-notification-types.yaml"
+      relativeToChangelogFile: true
+  - include:
+      file: "db.changelog-0006-load-user-categories.yaml"
       relativeToChangelogFile: true

@@ -1,0 +1,50 @@
+# ==============================
+# Gradle / Kotlin build artifacts
+# ==============================
+.gradle/
+build/
+out/
+*.class
+*.jar
+*.war
+
+# ==============================
+# IDEs
+# ==============================
+# IntelliJ / Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# ==============================
+# OS files
+# ==============================
+.DS_Store
+Thumbs.db
+
+# ==============================
+# Environment and secret files
+# ==============================
+.env
+.env.local
+.env.*.local
+secrets.properties
+config/*.secret
+
+# ==============================
+# Logs and temporary files
+# ==============================
+logs/
+*.log
+tmp/
+
+# ==============================
+# Kotlin / Java extras
+# ==============================
+/build/
+
+*~

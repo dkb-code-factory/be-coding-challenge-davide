@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0004-create-user-categories-table
+      author: "davide_piarulli"
+
+
+      changes:
+
+        # CREATE user_categories TABLE
+        - createTable:
+            tableName: user_categories
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: category
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: subscribed_at
+                  type: TIMESTAMP WITH TIME ZONE
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        # Add FK
+        - addForeignKeyConstraint:
+            baseTableName: user_categories
+            baseColumnNames: user_id
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+            constraintName: fk_user_categories_user
+
+      rollback:
+        - dropTable:
+            tableName: user_categories
